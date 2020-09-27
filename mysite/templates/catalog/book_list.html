@@ -1,0 +1,58 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+
+    {% if book_list %}
+
+
+
+
+   <table class="table table-hover" id="table_id">
+
+    <thead class='thead-dark'>
+    <th scope="col">Title</th>
+    <th scope="colr">Author</th>
+    <th scope="col">Summery</th>
+    <th scope="col">ISBN</th>
+    <th scope="col">Language</th>
+
+    <th scope="col">Total copies</th>
+    <th scope="col">Available copies</th>
+    </thead>
+    <tbody class="text-black" class="text-align:center" >
+      {% for book in book_list %}
+        <tr>
+            <td><a href="{{book.get_absolute_url}}">{{book.title}}</a></td>
+
+            <td>{{book.author}}</td>
+            <td>{{book.summary|truncatewords:10}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.language}}</td>
+
+            <td>{{book.total_copies}}</td>
+            <td>{{book.available_copies}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+{ % block js %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+       <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+
+    {% else %}
+      <p class=" bg bg-white">There are no books.</p>
+    {% endif %}
+{% endblock %}
+
